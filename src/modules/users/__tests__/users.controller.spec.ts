@@ -9,9 +9,18 @@ describe('UsersController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [InMemoryUsersRepository, InMemoryHasherGateway],
       controllers: [UsersController],
-      providers: [CreateUserService],
+      providers: [
+        CreateUserService,
+        {
+          provide: 'HasherGatewayInterface',
+          useClass: InMemoryHasherGateway,
+        },
+        {
+          provide: 'UsersRepositoryInterface',
+          useClass: InMemoryUsersRepository,
+        },
+      ],
     }).compile();
 
     controller = module.get<UsersController>(UsersController);
