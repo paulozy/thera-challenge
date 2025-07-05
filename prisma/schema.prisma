@@ -20,20 +20,59 @@ model User {
   password   String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+  Order      Order[]
 
   @@map("users")
 }
 
 model Product {
-  id          String   @id @default(uuid()) @map("_id")
-  barcode     String   @unique
+  id          String      @id @default(uuid()) @map("_id")
+  barcode     String      @unique
   name        String
   category    String
   description String
   price       Float
   stock       Int
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
+  created_at  DateTime    @default(now())
+  updated_at  DateTime    @updatedAt
+  OrderItem   OrderItem[]
 
   @@map("products")
+}
+
+enum OrderStatus {
+  pending
+  completed
+  canceled
+}
+
+model Order {
+  id        String      @id @default(uuid()) @map("id")
+  userId    String      @map("user_id")
+  total     Decimal     @map("total")
+  status    OrderStatus @default(pending) @map("status")
+  createdAt DateTime    @default(now()) @map("created_at")
+  updatedAt DateTime    @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id])
+
+  products OrderItem[]
+
+  @@map("orders")
+}
+
+model OrderItem {
+  orderId         String  @map("order_id")
+  productId       String  @map("product_id")
+  quantity        Int     @map("quantity")
+  priceAtPurchase Decimal @map("price_at_purchase")
+
+  order   Order   @relation(fields: [orderId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@id([orderId, productId])
+  @@map("order_items")
 }
