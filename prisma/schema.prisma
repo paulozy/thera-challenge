@@ -14,13 +14,26 @@ datasource db {
 }
 
 model User {
-  id       String @id @default(uuid()) @map("_id")
-  name     String
-  email    String @unique
-  password String
-
+  id         String   @id @default(uuid()) @map("_id")
+  name       String
+  email      String   @unique
+  password   String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
   @@map("users")
+}
+
+model Product {
+  id          String   @id @default(uuid()) @map("_id")
+  barcode     String   @unique
+  name        String
+  category    String
+  description String
+  price       Float
+  stock       Int
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  @@map("products")
 }

@@ -10,3 +10,38 @@ Content-Type: application/json
   "email": "jhon_doe@email.com",
   "password": "123456"
 }
+
+### Create a new Product
+POST http://localhost:3000/products
+Content-Type: application/json
+
+{
+  "name": "Smartphone X",
+  "barcode": "0000001",
+  "category": "Electronics",
+  "description": "Latest model smartphone with advanced features.",
+  "price": 999.99,
+  "stock": 150
+}
+
+### Get all Products with pagination
+GET http://localhost:3000/products?limit=10&page=1
+Content-Type: application/json
+
+### Get a single Product by ID
+GET http://localhost:3000/products/813b7cdf-02cc-4d4c-b7af-66c6136bca8e
+Content-Type: application/json
+
+### Update a Product by ID
+PATCH http://localhost:3000/products/813b7cdf-02cc-4d4c-b7af-66c6136bca8e
+Content-Type: application/json
+
+{
+  "name": "Smartphone X Pro",
+  "price": 1099.99,
+  "stock": 120
+}
+
+### Delete a Product by ID
+DELETE http://localhost:3000/products/813b7cdf-02cc-4d4c-b7af-66c6136bca8e
+Content-Type: application/json
