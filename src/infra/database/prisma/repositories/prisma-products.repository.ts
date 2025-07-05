@@ -40,9 +40,19 @@ export class PrismaProductsRepository implements ProductsRepositoryInterface {
     const { page = 1, limit = 10 } = payload;
     const skip = (page - 1) * limit;
 
+    const filter = {};
+    if (payload.ids) {
+      filter['id'] = { in: payload.ids };
+    }
+
+    if (payload.barcodes) {
+      filter['barcode'] = { in: payload.barcodes };
+    }
+
     const [total, rawData] = await Promise.all([
       this.prisma.product.count(),
       this.prisma.product.findMany({
+        where: filter,
         skip,
         take: limit,
       }),

@@ -1,4 +1,4 @@
-import { IsNumber, IsOptional, Min } from 'class-validator';
+import { IsArray, IsNumber, IsOptional, Min } from 'class-validator';
 
 export class ListProductsDTO {
   @IsOptional()
@@ -9,4 +9,10 @@ export class ListProductsDTO {
   @IsNumber()
   @Min(1)
   page: number;
+
+  @IsArray()
+  ids?: string[];
+
+  @IsArray()
+  barcodes?: string[];
 }
