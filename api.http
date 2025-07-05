@@ -11,17 +11,26 @@ Content-Type: application/json
   "password": "123456"
 }
 
+### Login
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "jhon_doe@email.com",
+  "password": "123456"
+}
+
 ### Create a new Product
 POST http://localhost:3000/products
 Content-Type: application/json
 
 {
-  "name": "Smartphone X",
-  "barcode": "0000001",
+  "name": "Laptop X",
+  "barcode": "0000002",
   "category": "Electronics",
-  "description": "Latest model smartphone with advanced features.",
-  "price": 999.99,
-  "stock": 150
+  "description": "Latest model laptop with advanced features.",
+  "price": 1200.00,
+  "stock": 2
 }
 
 ### Get all Products with pagination
@@ -45,3 +54,23 @@ Content-Type: application/json
 ### Delete a Product by ID
 DELETE http://localhost:3000/products/813b7cdf-02cc-4d4c-b7af-66c6136bca8e
 Content-Type: application/json
+
+### Create a new order
+POST http://localhost:3000/orders
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdiY2Q0MWI0LTlkYzgtNGRiNy04YmI3LTNjMjdiNDBiODE3MCIsIm5hbWUiOiJKaG9uIERvZSIsImVtYWlsIjoiamhvbl9kb2VAZW1haWwuY29tIiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wNVQwNzoyNDo1MC40NjVaIiwidXBkYXRlZEF0IjoiMjAyNS0wNy0wNVQwNzoyNDo1MC40NjVaIiwiaWF0IjoxNzUxNzQ4Mzc1LCJleHAiOjE3NTE5MjExNzV9.y0qzCMJgXXjwPcxSkGENmJq35Hu4-yIBMrnrPoY7S9Q
+
+{
+  "items": [
+    {
+      "id": "9a91daf3-e0e5-47d7-a86c-de16c669c704",
+      "qty": 1
+    }
+  ],
+  "paymentMethod": "pix"
+}
+
+###  List orders by user
+GET http://localhost:3000/orders?page=2&limit=1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdiY2Q0MWI0LTlkYzgtNGRiNy04YmI3LTNjMjdiNDBiODE3MCIsIm5hbWUiOiJKaG9uIERvZSIsImVtYWlsIjoiamhvbl9kb2VAZW1haWwuY29tIiwiY3JlYXRlZEF0IjoiMjAyNS0wNy0wNVQwNzoyNDo1MC40NjVaIiwidXBkYXRlZEF0IjoiMjAyNS0wNy0wNVQwNzoyNDo1MC40NjVaIiwiaWF0IjoxNzUxNzQ4Mzc1LCJleHAiOjE3NTE5MjExNzV9.y0qzCMJgXXjwPcxSkGENmJq35Hu4-yIBMrnrPoY7S9Q
