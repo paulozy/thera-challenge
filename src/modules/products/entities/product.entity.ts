@@ -49,24 +49,48 @@ export class Product extends BaseEntity {
     return this._name;
   }
 
+  set name(value: string) {
+    this._name = value;
+  }
+
   get barcode(): string {
     return this._barcode;
+  }
+
+  set barcode(value: string) {
+    this._barcode = value;
   }
 
   get category(): string {
     return this._category;
   }
 
+  set category(value: string) {
+    this._category = value;
+  }
+
   get description(): string {
     return this._description;
+  }
+
+  set description(value: string) {
+    this._description = value;
   }
 
   get price(): number {
     return this._price;
   }
 
+  set price(value: number) {
+    this._price = value;
+  }
+
   get stock(): number {
     return this._stock;
+  }
+
+  set stock(value: number) {
+    this._stock = value;
   }
 
   public decreaseStock(qty: number) {
