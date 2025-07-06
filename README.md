@@ -60,6 +60,14 @@ API RESTful para gerenciamento de pedidos e produtos, desenvolvida com NestJS, c
    DATABASE_URL="postgresql://postgres:postgres@localhost:5432/nestjs_db?schema=public"
    ```
 
+### Preparar Banco de Dados
+
+Para aplicar as migrações e popular o banco de dados com dados iniciais:
+
+```bash
+pnpm run prepare:db
+```
+
 ### Executando com Docker
 
 Para subir o ambiente de desenvolvimento com Docker, execute:
