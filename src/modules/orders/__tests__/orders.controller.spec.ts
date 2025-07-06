@@ -1,11 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { OrderStatus } from '@prisma/client';
 import { User } from 'src/modules/users/entities/user.entity';
 import { CreateOrderDto } from '../dto/create-order.dto';
 import { ListOrdersDTO } from '../dto/list-orders.dto';
+import { OrderStatus } from '../entities/order.entity';
 import { OrdersController } from '../orders.controller';
 import { CreateOrderService } from '../services/create-order.service';
 import { ListOrdersByUserService } from '../services/list-orders-by-user.service';
+import { ProcessOrderPaymentService } from '../services/process-order-payment.service';
 
 describe('OrdersController', () => {
   let controller: OrdersController;
@@ -20,6 +21,10 @@ describe('OrdersController', () => {
     execute: jest.fn(),
   };
 
+  const mockProcessOrderPaymentService = {
+    execute: jest.fn(),
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [OrdersController],
@@ -31,6 +36,10 @@ describe('OrdersController', () => {
         {
           provide: ListOrdersByUserService,
           useValue: mockListOrdersByUserService,
+        },
+        {
+          provide: ProcessOrderPaymentService,
+          useValue: mockProcessOrderPaymentService,
         },
       ],
     }).compile();
@@ -64,7 +73,7 @@ describe('OrdersController', () => {
         id: 'order1',
         userId: 'user1',
         total: 10,
-        status: OrderStatus.pending,
+        status: OrderStatus.PENDING,
         products: [],
         createdAt: new Date(),
         updatedAt: new Date(),

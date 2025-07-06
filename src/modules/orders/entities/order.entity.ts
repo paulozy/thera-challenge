@@ -3,7 +3,12 @@ import { BaseEntity } from 'src/@shared/entities/base.entity';
 export enum OrderStatus {
   PENDING = 'pending',
   CANCELED = 'canceled',
+  COMPLETED = 'completed',
+}
+
+export enum PaymentStatus {
   SUCCEEDED = 'succeeded',
+  CANCELED = 'canceled',
 }
 
 export type OrderProps = {
@@ -63,6 +68,10 @@ export class Order extends BaseEntity {
 
   get status(): OrderStatus {
     return this._status;
+  }
+
+  set status(status: OrderStatus) {
+    this._status = status;
   }
 
   public toJSON() {
