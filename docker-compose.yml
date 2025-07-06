@@ -6,15 +6,46 @@ services:
     container_name: nestjs_postgres
     restart: unless-stopped
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: nestjs_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=nestjs_db
     ports:
       - '5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - nestjs-network
+
+  app-dev:
+    build:
+      context: .
+      target: development
+    container_name: thera_chall_app_dev
+    depends_on:
+      - postgres
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - nestjs-network
+    env_file:
+      - .env
+
+  app-prod:
+    build:
+      context: .
+      target: production
+    container_name: thera_chall_app_prod
+    depends_on:
+      - postgres
+    ports:
+      - "3000:3000"
+    networks:
+      - nestjs-network
+    env_file:
+      - .env
 
 volumes:
   postgres_data:
