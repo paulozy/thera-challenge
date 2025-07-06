@@ -12,6 +12,7 @@ async function bootstrap() {
     .setDescription('The Thera-Chall API description')
     .setVersion('1.0')
     .addTag('thera-chall')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
